@@ -5,6 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
+// コミュニティイベント
 {
     /**
      * Run the migrations.
@@ -13,7 +14,9 @@ return new class extends Migration
     {
         Schema::create('comm_events', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->integer("comm_id"); //コミュニティid
+            $table->datetime("held_datetime"); //開催日時
+            $table->string("held_place"); //開催場所
         });
     }
 

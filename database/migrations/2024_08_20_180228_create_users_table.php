@@ -5,6 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
+// Usersのデータベース
 {
     /**
      * Run the migrations.
@@ -12,8 +13,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id("user_id"); //ユーザのID
+            $table->string("name");
+            $table->integer("region_id"); //ユーザが所属する地域のID
         });
     }
 
