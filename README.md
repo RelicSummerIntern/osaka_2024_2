@@ -15,7 +15,7 @@ docker run --rm \
     laravelsail/php82-composer:latest \
     composer install
 
-# 以下は一つずつ実行してください11
+# 以下は一つずつ実行してください112222
 docker-compose up -d
 docker-compose exec laravel.test php artisan key:generate
 docker-compose exec laravel.test php artisan migrate:fresh
