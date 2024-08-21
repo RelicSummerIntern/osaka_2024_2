@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->integer("region_id"); //ユーザが所属する地域のID
             $table->timestamps();
         });
     }
