@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('outer_events', function (Blueprint $table) {
             $table->id();
-            $table->datetime("held_datetime");
-            $table->string("URL");
+            $table->datetime("held_datetime"); //開催日時
+            $table->string("URL"); //URL
         });
     }
 
