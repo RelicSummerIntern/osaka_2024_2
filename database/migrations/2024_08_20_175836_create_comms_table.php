@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('comms', function (Blueprint $table) {
             $table->id();
+            $table->string("name"); //コミュニティ名
             $table->timestamps();
         });
     }
