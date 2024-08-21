@@ -5,8 +5,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
+
 /**
- * コミュニティ内のチャットを保存するDB
+ * 地域名を保存するDB
  */
 {
     /**
@@ -14,12 +15,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comm_chats', function (Blueprint $table) {
+        Schema::create('regions', function (Blueprint $table) {
             $table->id();
-            $table->foreign("comm_id")->references("id")->on("comms");
-            $table->foreign("user_id")->references("id")->on("users");
-            $table->string("text");
-            $table->timestamps();
+            $table->string("name"); //地域名
         });
     }
 
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comm_chats');
+        Schema::dropIfExists('regions');
     }
 };

@@ -14,9 +14,10 @@ return new class extends Migration
     {
         Schema::create('comm_events', function (Blueprint $table) {
             $table->id();
-            $table->integer("comm_id"); //コミュニティid
+            $table->foreign("comm_id")->references("id")->on("comms"); //コミュニティid
             $table->datetime("held_datetime"); //開催日時
             $table->string("held_place"); //開催場所
+            $table->timestamp(); //登録した時間
         });
     }
 

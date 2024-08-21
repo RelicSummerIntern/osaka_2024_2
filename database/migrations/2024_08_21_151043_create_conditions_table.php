@@ -5,17 +5,19 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
-// コミュニティとユーザの中間テーブル
+/**
+ * 体調名を保存するDB
+ */
 {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('comms2_users', function (Blueprint $table) {
+        Schema::create('conditions', function (Blueprint $table) {
             $table->id();
-            $table->integer("user_id");
-            $table->integer("comm_id");
+            $table->string("condition"); //体調
+            $table->timestamps();
         });
     }
 
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comms2_users-tables');
+        Schema::dropIfExists('conditions');
     }
 };

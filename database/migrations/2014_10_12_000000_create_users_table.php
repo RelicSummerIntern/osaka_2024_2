@@ -18,7 +18,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->integer("region_id"); //ユーザが所属する地域のID
+            
+            $table->foreign("region_id")->references('id')->on('regions'); //ユーザが所属する地域のID
+            $table->foreign("condition_id")->references("id")->on("conditions"); //体調の記録
             $table->timestamps();
         });
     }

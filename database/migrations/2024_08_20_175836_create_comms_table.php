@@ -5,6 +5,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
+/**
+ * コミュニティとその名前を保存するDB
+ */
 {
     /**
      * Run the migrations.
