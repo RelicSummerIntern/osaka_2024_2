@@ -4,6 +4,7 @@
             なごみネット
         </h1>
     </x-slot>
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">

@@ -40,7 +40,7 @@
             @endif
 
             <x-primary-button class="ml-3">
-            <a class href="{{ route('mypage') }}">
+            <a class href="{{ route('login') }}">
                 {{ __('Log in') }}
             </x-primary-button>
         </div>

@@ -56,7 +56,7 @@
             </a>
 
             <x-primary-button class="ml-4">
-            <a class href="{{ route('mypage') }}">
+            <a class href="{{ route('register')}}">
                 {{ __('Register') }}
             </x-primary-button>
         </div>
