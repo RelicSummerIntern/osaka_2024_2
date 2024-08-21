@@ -1,7 +1,7 @@
 
-<!-
+<!--
 コミュニティ画面
--!>
+-->
 
 <x-app-layout>
     <x-slot name="header">
