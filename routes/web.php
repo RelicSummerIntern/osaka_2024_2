@@ -41,5 +41,20 @@ Route::middleware('auth')->group(function () {
     Route::get('/myposts', [PostController::class, 'myPosts'])->name('myposts');
 });
 
+// 登録後のマイページへのルート
+
+Route::get('/mypage',function(){
+    return view('mypage');
+
+})->name('mypage');
+
+// カレンダーのイベントなどのデータベースを引っ張るもの（仮）
+
+Route::get('/fetch-events', function() {
+    $events = DB::table('events')->select('id', 'title', 'start', 'end')->get();
+    return response()->json($events);
+});
+
+
 require __DIR__.'/auth.php';
 

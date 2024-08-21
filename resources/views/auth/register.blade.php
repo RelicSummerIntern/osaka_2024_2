@@ -27,8 +27,18 @@
                             required autocomplete="new-password" />
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        
         </div>
 
+        <!-- 郵便番号 -->
+        <script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
+         <form class="h-adr">
+         <span class="p-country-name" style="display:none;">Japan</span>
+                郵便番号：<input type="text" class="p-postal-code" size="8" maxlength="8"><br>
+                都道府県：<input type="text" class="p-region" /><br>
+                地区町村：<input type="text" class="p-locality" /><br>
+                町名番地：<input type="text" class="p-street-address p-extended-address" />
+         </form>
         <!-- Confirm Password -->
         <!-- <div class="mt-4">
              <label class>hoge</label>
@@ -46,6 +56,7 @@
             </a>
 
             <x-primary-button class="ml-4">
+            <a class href="{{ route('mypage') }}">
                 {{ __('Register') }}
             </x-primary-button>
         </div>
