@@ -38,9 +38,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/post/{id}', [PostController::class, 'update'])->name('post.update');
     Route::delete('/post/{id}', [PostController::class, 'destroy'])->name('post.destroy');
 
-    //コミュニティ画面に入る
-    Route::get('/community/{id}', [CommsController::class, 'visit'])->name('comms.visit');
 
+    //======コミュニティ一覧からのルート======
+    //コミュニティに入るとき、そのユーザがコミュニティに属しているか確認（基本的にはこちらを呼び出す）
+    Route::post('/community/{comm_id}/enter', [CommsController::class, 'enter'])->name('comms.enter');
+    // コミュニティの詳細ページへ直接移動（comms.enterで呼び出す）
+    Route::get('/community/{comm_id}', [CommunityController::class, 'show'])->name('community.show');
+
+    //======コミュニティ詳細からのルート======
     Route::get('/myposts', [PostController::class, 'myPosts'])->name('myposts');
 });
 

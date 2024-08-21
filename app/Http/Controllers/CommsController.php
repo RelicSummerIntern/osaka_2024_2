@@ -4,19 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Comms;
 
+use App\Models\Comms2Users;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class CommsController extends Controller
+/**
+ * コミュニティ"一覧"画面のコントローラ
+ */
 {
     //コミュニティに入るときの動作
-    public function visit()
+    public function enter()
     {
         // 自分がコミュニティに属しているかを確認
-        $user_id = auth()->id(); // 現在ログインしているユーザのIDを取得
+        $user_id = Auth::id(); // 現在ログインしているユーザのIDを取得
         $comm_id = request()->route('comm_id'); // ルートパラメータからコミュニティIDを取得
         $this->_checkin($user_id, $comm_id);
         
-        // OKなら、コミュニティページにリダイレクト
+        // OKなら、コミュニティページに飛ばす
         return redirect()->route('community.show', ['id' => $comm_id]);
     }
     
@@ -24,9 +30,8 @@ class CommsController extends Controller
     private function _checkin(int $user_id, int $comm_id)
     {
         // 中間テーブルを参照し、渡されたユーザIDとコミュニティIDの組合せがあるか確認
-        $exists = \DB::table('community_user')
-                    ->where('user_id', $user_id)
-                    ->where('community_id', $comm_id)
+        $exists = Comms2Users::where('user_id', $user_id)
+                    ->where('comm_id', $comm_id)
                     ->exists();
     
         // 組合せがない場合は、例外を投げる
@@ -37,8 +42,12 @@ class CommsController extends Controller
         // 組合せがある場合は何もしない（OK）
     }
 
-    public function show(){
-
+    /**
+     * Display the specified resource.
+     */
+    public function show(Comms $comms)
+    {
+        //
     }
     /**
      * Display a listing of the resource.
@@ -64,13 +73,7 @@ class CommsController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Comms $comms)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
