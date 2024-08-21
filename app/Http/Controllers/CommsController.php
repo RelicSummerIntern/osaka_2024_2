@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CommsController extends Controller
 /**
- * コミュニティ一覧画面のコントローラ
+ * コミュニティ"一覧"画面のコントローラ
  */
 {
     //コミュニティに入るときの動作

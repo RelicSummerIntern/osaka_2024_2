@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comms;
+use App\Models\CommChats;
+use App\Models\CommEvents;
 use App\Models\Comms2Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CommunityController extends Controller
 /**
- * コミュニティ詳細画面のコントローラ
+ * コミュニティ"詳細"画面のコントローラ
  */
 {
     /**
@@ -21,17 +23,23 @@ class CommunityController extends Controller
         // 現在ログインしているユーザのIDを取得
         $user_id = Auth::id();
 
-        $comm = Comms::find($comm_id); // コミュニティIDからモデルを取得
-        $comm_name = $comm ? $comm->name : null; // 名前を取得、存在しない場合は null
+        // コミュニティIDからモデルを取得
+        $comm = Comms::find($comm_id); 
+
+        // 名前を取得、存在しない場合は null
+        $comm_name = $comm ? $comm->name : null; 
+
+        //チャット履歴を取得
+        $commchat = CommChats::find($comm_id); 
 
         // 他のメンバのID表を取得
         $members = Comms2Users::where('community_id', $comm_id)->get();
 
+
         // ビューにデータを渡す（仮）
-        //TODO
-        return view('community.show', [
-            'community' => $community,
-            'members' => $members,
+        return view('community', [
+            'comm_name' => $comm_name,
+            'members' => $members, //members->id, condition, ...等の使い方を想定
             'user_id' => $user_id,
         ]);
     }
