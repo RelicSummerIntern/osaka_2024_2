@@ -37,7 +37,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/post/{id}', [PostController::class, 'edit'])->name('post.edit');
     Route::patch('/post/{id}', [PostController::class, 'update'])->name('post.update');
     Route::delete('/post/{id}', [PostController::class, 'destroy'])->name('post.destroy');
-
+    Route::get('/mypage',function(){
+        return view('mypage');
+    
+    })->name('mypage');
+    
     //コミュニティ画面に入る
     Route::get('/community/{id}', [CommsController::class, 'visit'])->name('comms.visit');
 
@@ -46,10 +50,10 @@ Route::middleware('auth')->group(function () {
 
 // 登録後のマイページへのルート
 
-Route::get('/mypage',function(){
-    return view('mypage');
+// Route::get('/mypage',function(){
+//     return view('mypage');
 
-})->name('mypage');
+// })->name('mypage');
 
 // カレンダーのイベントなどのデータベースを引っ張るもの（仮）
 

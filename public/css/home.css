@@ -1,0 +1,77 @@
+/* 基本設定 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+/* 全体レイアウト調整 */
+.x-app-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #ffffff;
+}
+
+/* ヘッダー部分のスタイル */
+.x-app-layout h1 {
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 1rem;
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+/* コンテナの調整 */
+.max-w-7xl {
+    max-width: 100%;
+    padding: 0 1rem;
+}
+
+/* ボタン部分のスタイル */
+a {
+    display: block;
+    width: 100%;
+    padding: 1.25rem;
+    font-size: 1.125rem;
+    color: #333;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+a:hover {
+    background-color: #4CAF50;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 各ボタンの個別スタイル */
+a[href*="login"] {
+    background-color: #f9f9f9;
+    border: 2px solid #4CAF50;
+    margin-bottom: 1rem;
+}
+
+a[href*="register"] {
+    background-color: #fff;
+    border: 2px solid #4CAF50;
+}
+
+a:hover[href*="login"], a:hover[href*="register"] {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+/* 全体のパディング調整 */
+.py-12 {
+    padding: 2rem 0;
+}
+
+/* フッターの位置調整 */
+.x-app-layout > div:last-child {
+    margin-top: auto;
+}
