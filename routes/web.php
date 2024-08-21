@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/post/{id}', [PostController::class, 'update'])->name('post.update');
     Route::delete('/post/{id}', [PostController::class, 'destroy'])->name('post.destroy');
 
-    //コミュニティ画面に入る
+    //======コミュニティ一覧からボタンを押されたときのルート======
     Route::get('/community/{id}', [CommsController::class, 'visit'])->name('comms.visit');
 
     Route::get('/myposts', [PostController::class, 'myPosts'])->name('myposts');

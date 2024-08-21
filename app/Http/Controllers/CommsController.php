@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comms;
-
+use App\Models\Comms2Users;
 use Illuminate\Http\Request;
 
 class CommsController extends Controller
@@ -24,7 +24,7 @@ class CommsController extends Controller
     private function _checkin(int $user_id, int $comm_id)
     {
         // 中間テーブルを参照し、渡されたユーザIDとコミュニティIDの組合せがあるか確認
-        $exists = \DB::table('community_user')
+        $exists = Comms2Users::('community_user')
                     ->where('user_id', $user_id)
                     ->where('community_id', $comm_id)
                     ->exists();
@@ -37,9 +37,14 @@ class CommsController extends Controller
         // 組合せがある場合は何もしない（OK）
     }
 
-    public function show(){
-
+    /**
+     * Display the specified resource.
+     */
+    public function show(Comms $comms)
+    {
+        //
     }
+
     /**
      * Display a listing of the resource.
      */
@@ -64,13 +69,7 @@ class CommsController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Comms $comms)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.
