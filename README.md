@@ -3,7 +3,7 @@
 ## 初回セットアップ手順（上から順番に実行）
 
 ```sh
-# 作業ディレクトリに移動して作業を進めてください 
+# 作業ディレクトリに移動して作業を進めてください 22
 
 cp .env.example .env
 
@@ -23,7 +23,7 @@ docker-compose exec laravel.test npm install
 docker-compose exec laravel.test npm run dev
 ```
 
-ここまで実行すると http://localhost/ でサンプルアプリにアクセスできます
+ここまで実行すると http://localhost/ でサンプルアプリにアクセスできます222
 
 ## 2回目以降の起動方法
 
