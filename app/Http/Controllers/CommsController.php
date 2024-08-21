@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comms;
+
 use App\Models\Comms2Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,7 +49,6 @@ class CommsController extends Controller
     {
         //
     }
-
     /**
      * Display a listing of the resource.
      */

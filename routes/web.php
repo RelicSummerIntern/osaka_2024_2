@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/post/{id}', [PostController::class, 'update'])->name('post.update');
     Route::delete('/post/{id}', [PostController::class, 'destroy'])->name('post.destroy');
 
+
     //======コミュニティ一覧からのルート======
     //コミュニティに入るとき、そのユーザがコミュニティに属しているか確認（基本的にはこちらを呼び出す）
     Route::post('/community/{comm_id}/enter', [CommsController::class, 'enter'])->name('comms.enter');
@@ -45,9 +46,23 @@ Route::middleware('auth')->group(function () {
     Route::get('/community/{comm_id}', [CommunityController::class, 'show'])->name('community.show');
 
     //======コミュニティ詳細からのルート======
-
     Route::get('/myposts', [PostController::class, 'myPosts'])->name('myposts');
 });
+
+// 登録後のマイページへのルート
+
+Route::get('/mypage',function(){
+    return view('mypage');
+
+})->name('mypage');
+
+// カレンダーのイベントなどのデータベースを引っ張るもの（仮）
+
+Route::get('/fetch-events', function() {
+    $events = DB::table('events')->select('id', 'title', 'start', 'end')->get();
+    return response()->json($events);
+});
+
 
 require __DIR__.'/auth.php';
 

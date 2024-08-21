@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 /**
- * コミュニティ内のチャットを保存するDB
+ * コミュニティとユーザを結び付ける中間テーブル
  */
 {
     /**
@@ -14,12 +14,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comm_chats', function (Blueprint $table) {
+        Schema::create('comms2_users', function (Blueprint $table) {
             $table->id();
-            $table->foreign("comm_id")->references("id")->on("comms");
-            $table->foreign("user_id")->references("id")->on("users");
-            $table->string("text");
-            $table->timestamps();
+            $table->foreign("user_id")->references("id")->on("users"); //コミュニティid
+            $table->foreign("comm_id")->references("id")->on("comms"); //コミュニティid
         });
     }
 
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comm_chats');
+        Schema::dropIfExists('comms2_users-tables');
     }
 };
