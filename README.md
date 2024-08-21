@@ -15,7 +15,7 @@ docker run --rm \
     laravelsail/php82-composer:latest \
     composer install
 
-# 以下は一つずつ実行してください11
+# 以下は一つずつ実行してください
 docker-compose up -d
 docker-compose exec laravel.test php artisan key:generate
 docker-compose exec laravel.test php artisan migrate:fresh
@@ -25,7 +25,7 @@ docker-compose exec laravel.test npm run dev
 
 ここまで実行すると http://localhost/ でサンプルアプリにアクセスできます222
 
-## 2回目以降の起動方法1
+## 2回目以降の起動方法
 
 ```sh
 docker-compose up -d
