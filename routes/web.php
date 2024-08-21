@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommsController;
+use App\Http\Controllers\CommunityController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,11 +43,7 @@ Route::middleware('auth')->group(function () {
         return view('mypage');
     
     })->name('mypage');
-    
-    //コミュニティ画面に入る
-    Route::get('/community/{id}', [CommsController::class, 'visit'])->name('comms.visit');
 
-    Route::get('/myposts', [PostController::class, 'myPosts'])->name('myposts');
 });
 
 // 登録後のマイページへのルート
@@ -61,6 +59,14 @@ Route::get('/fetch-events', function() {
     $events = DB::table('events')->select('id', 'title', 'start', 'end')->get();
     return response()->json($events);
 });
+
+//======コミュニティ一覧まわりのルート======
+//コミュニティ一覧のページ表示
+Route::get('/community', [CommsController::class, 'index'])->name('comms.index');
+//コミュニティに入るとき、そのユーザがコミュニティに属しているか確認（基本的にはこちらを呼び出す）
+Route::get('/community/{comm_id}/enter', [CommsController::class, 'enter'])->name('comms.enter');
+// コミュニティの詳細ページへ直接移動（comms.enterで呼び出す）
+Route::get('/community/{comm_id}', [CommunityController::class, 'show'])->name('community.show');
 
 
 require __DIR__.'/auth.php';
