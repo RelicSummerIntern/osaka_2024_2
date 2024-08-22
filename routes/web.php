@@ -48,10 +48,10 @@ Route::middleware('auth')->group(function () {
 
 // 登録後のマイページへのルート
 
-// Route::get('/mypage',function(){
-//     return view('mypage');
+Route::get('/mypage',function(){
+    return view('mypage');
 
-// })->name('mypage');
+})->name('mypage');
 
 // カレンダーのイベントなどのデータベースを引っ張るもの（仮）
 
