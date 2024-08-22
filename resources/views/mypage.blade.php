@@ -26,7 +26,7 @@
         <div class="mood-update">
             <h3>今日の体調を更新しましょう！</h3>
             <form action="update_mood.php" method="post">
-                <label for="mood">気分</label>
+                <label for="mood">体調</label>
                 <select id="mood" name="mood">
                     <option value="😊">😊</option>
                     <option value="😐">😐</option>
@@ -62,38 +62,14 @@
 
         </script>
         
-        <!-- イベント作成フォーム -->
-
-        <div class="event-create">
-            <h3>イベント作成</h3>
-            <form action="/create-event" method="post">
-                @csrf
-                <label for="title">イベント名:</label>
-                <input type="text" id="title" name="title" required>
-                
-                <label for="description">詳細:</label>
-                <textarea id="description" name="description"></textarea>
-                
-                <label for="start_time">開始日時:</label>
-                <input type="datetime-local" id="start_time" name="start_time" required>
-                
-                <label for="end_time">終了日時:</label>
-                <input type="datetime-local" id="end_time" name="end_time">
-                
-                <label for="location">場所:</label>
-                <input type="text" id="location" name="location">
-                
-                <button type="submit">作成</button>
-            </form>
-        </div>
-
+      
 
             
 
 
         <div class="navigation">
             <button onclick="location.href='{{ route('comms.index') }}'">コミュニティ</button>
-            <button onclick="location.href='events.php'">イベント</button>
+            <button onclick="location.href='events.php'">チャット</button>
         </div>
     </div>
 </body>

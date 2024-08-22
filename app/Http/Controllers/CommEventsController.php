@@ -12,11 +12,12 @@ class CommEventsController extends Controller
      */
     public function index()
     {
-        $events = CommEvents::all();
-        // ビューにデータを渡す
-        return view('event.show',[
-            'events' => $events //所属コミュニティ情報
-        ]);    }
+        // $events = CommEvents::all();
+        // // ビューにデータを渡す
+        // return view('event.show',[
+        //     'events' => $events //所属コミュニティ情報
+        // ]);    
+    }
 
     /**
      * Show the form for creating a new resource.
