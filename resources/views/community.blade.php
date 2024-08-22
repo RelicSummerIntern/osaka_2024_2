@@ -109,9 +109,9 @@
         <h2>メンバー一覧</h2>
         <div class="members-list">
             @foreach ($members as $member)
-                <div class="member-item">
+                <div class="member-item {{ $member->id == Auth::id() ? 'self' : '' }}">
                     <!-- プロフィール画像（仮のURL、実際にはユーザーの画像URLを使用） -->
-                    <!-- <img src="{{ $member->profile_picture_url ?? 'path/to/default/profile.jpg' }}" alt="{{ $member->name }}"> -->
+                    <img src="{{ $member->profile_picture_url ?? 'path/to/default/profile.jpg' }}" alt="{{ $member->name }} さんのプロフィール画像">
                     <h1>{{ $member->name }} さん</h1>
                 </div>
             @endforeach
