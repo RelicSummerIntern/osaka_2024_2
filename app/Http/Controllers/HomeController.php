@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // 現在ログインしているユーザーのIDを取得
+        $user_id = Auth::id();
+        
+        // ユーザー情報を取得
+        $user = Auth::user();
+        
+        // // ユーザーが参加しているコミュニティのIDを取得
+        // $comm_ids = Comms2Users::where('user_id', $user_id)->pluck('comm_id');
+        
+        // // そのコミュニティIDに基づいてコミュニティ情報を取得
+        // $comms = Comms::whereIn('id', $comm_ids)->get();
+        
+        // ビューにデータを渡す
+        return view('mypage', [
+            'user' => $user, //ユーザ情報
+            // 'comms' => $comms //所属コミュニティ情報
+        ]);
     }
 }
