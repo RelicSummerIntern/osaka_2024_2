@@ -46,7 +46,7 @@
                             .then(response => response.json())
                             .then(data => {
                                 successCallback(data.map(event => ({
-                                    id: event.id,
+                                    //id: event.id,
                                     title: event.title,
                                     start: event.held_datetime,
                                     end: event.end_time || null,
