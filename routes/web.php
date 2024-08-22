@@ -51,12 +51,7 @@ Route::middleware('auth')->group(function () {
 
 
     // カレンダーのイベントなどのデータベースを引っ張るもの（仮）
-    Route::get('/fetch-events', function() {
-        $events = DB::table('events')->select('id', 'title', 'start', 'end')->get();
-        return response()->json($events);
-    });
-
-
+    Route::get('/fetch-user-events', [CommEventsController::class, 'fetchUserEvents']);
 });
 
 //======コミュニティ一覧まわりのルート======
@@ -78,7 +73,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/create-event', [CommEventsController::class, 'create']);
 
     // イベント詳細のルート
-    Route::get('/events/{id}', [EventsController::class, 'show']);
+    Route::get('/events/{datetime}', [EventsController::class, 'show']);
 });
 
 require __DIR__.'/auth.php';

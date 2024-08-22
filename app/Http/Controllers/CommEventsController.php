@@ -62,7 +62,18 @@ class CommEventsController extends Controller
 
     }
 
+    // コミュニティイベントを取得し、カレンダーに反映
+    public function fetchUserEvents(Request $request)
+    {
+        $userId = Auth::id(); // 現在のユーザーID
+        $comm_ids = DB::table('comms2_users')->where('user_id', $userId)->pluck('comm_id'); // ユーザーが所属しているコミュニティのIDを取得
+        
+        $events = CommEvents::whereIn('comm_id', $comm_ids)->get(); // 所属コミュニティのイベントを取得
     
+        return response()->json($events);
+    }
+
+
     //  * Show the form for editing the specified resource.
     //  *
     public function edit(CommEvents $commEvents)
