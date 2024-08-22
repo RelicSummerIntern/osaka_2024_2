@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\CommEvents;
+use Illuminate\Support\Facades\Auth; // Authクラスをインポート
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class CommEventsController extends Controller
@@ -62,14 +64,17 @@ class CommEventsController extends Controller
 
     }
 
-    // コミュニティイベントを取得し、カレンダーに反映
+    // コミュニティイベントを取得し、デバッグ用にイベント内容をログに表示
     public function fetchUserEvents(Request $request)
     {
         $userId = Auth::id(); // 現在のユーザーID
         $comm_ids = DB::table('comms2_users')->where('user_id', $userId)->pluck('comm_id'); // ユーザーが所属しているコミュニティのIDを取得
         
         $events = CommEvents::whereIn('comm_id', $comm_ids)->get(); // 所属コミュニティのイベントを取得
-    
+        
+        // デバッグ用にイベントの内容をログに表示
+        //Log::info('取得したイベント:', ['events' => $events->toArray()]);
+        
         return response()->json($events);
     }
 
