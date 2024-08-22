@@ -13,8 +13,10 @@ class CommEventsController extends Controller
     public function index()
     {
         $events = CommEvents::all();
-        return response()->json($events);
-    }
+        // ビューにデータを渡す
+        return view('event.show',[
+            'events' => $events //所属コミュニティ情報
+        ]);    }
 
     /**
      * Show the form for creating a new resource.
@@ -45,8 +47,12 @@ class CommEventsController extends Controller
      */
     public function show(CommEvents $commEvents)
     {
-        $event =CommEvents::findOrFail($commEvents);
-        return view('event.show', compact('event'));
+        // $events =CommEvents::findOrFail($commEvents);
+        $events = CommEvents::all();
+        return view('event.show',[
+            'events' => $events //所属コミュニティ情報
+        ]);    
+
     }
 
     
