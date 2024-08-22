@@ -4,9 +4,13 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommsController;
 use App\Http\Controllers\CommunityController;
+
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\CommEventsController;
+use App\Http\Controllers\EventsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -74,7 +78,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/create-event', [CommEventsController::class, 'create']);
 
     // イベント詳細のルート
-    Route::get('/events/{id}', [CommEventsController::class, 'show']);
+    Route::get('/events/{id}', [EventsController::class, 'show']);
 });
 
 require __DIR__.'/auth.php';
