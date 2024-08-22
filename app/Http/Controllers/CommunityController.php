@@ -18,28 +18,35 @@ class CommunityController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(id $comm_id)
+    public function index($comm_id, Request $request)
     {
+
         // 現在ログインしているユーザのIDを取得
-        $user_id = Auth::id();
-
-        // コミュニティIDからモデルを取得
-        $comm = Comms::find($comm_id); 
-
-        // 名前を取得、存在しない場合は null
-        $comm_name = $comm ? $comm->name : null; 
-
-        //チャット履歴を取得
-        $commchat = CommChats::find($comm_id); 
-
-        // 他のメンバのID表を取得
-        $members = Comms2Users::where('community_id', $comm_id)->get();
-
-
-        // ビューにデータを渡す（仮）
+        $user_id = $request->query('user_id', Auth::id()); // クエリパラメータがない場合はログインユーザーのIDを使用
+    
+        // コミュニティIDからコミュニティモデルを取得
+        $comm = Comms::find($comm_id);
+    
+        // コミュニティ名を取得、存在しない場合はnull
+        $comm_name = $comm ? $comm->name : null;
+    
+        // チャット履歴を取得し、ユーザー情報もロード
+        $commchat = CommChats::where('comm_id', $comm_id)
+        ->with('user') // ユーザー情報を一緒に取得
+        ->orderBy('created_at', 'desc') // 最新のメッセージが上に来るように
+        ->get();
+    
+        // 他のメンバの情報を取得
+        $members = Comms2Users::where('comm_id', $comm_id)
+        ->with('user') // ユーザー情報を一緒に取得
+        ->get()
+        ->pluck('user'); // 'user'リレーションでUserモデルを取得
+    
+        // ビューにデータを渡す
         return view('community', [
             'comm_name' => $comm_name,
-            'members' => $members, //members->id, condition, ...等の使い方を想定
+            'members' => $members, // members->id, condition, ...等の使い方を想定
+            'commchat' => $commchat, // チャット履歴
             'user_id' => $user_id,
         ]);
     }
@@ -47,7 +54,7 @@ class CommunityController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function show()
     {
         //
     }
