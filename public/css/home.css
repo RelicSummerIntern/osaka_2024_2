@@ -1,77 +1,81 @@
-/* 基本設定 */
 body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif;
-    background-color: #f0f0f0;
-    color: #333;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
-/* 全体レイアウト調整 */
-.x-app-layout {
+.container-wrapper {
+    width: 100%;
+    max-width: 400px; /* スマホ画面サイズに合わせた最大幅 */
+    margin: 20px; /* 画面中央付近に配置 */
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    background-color: #ffffff;
+    justify-content: center; /* 縦方向に中央揃え */
+    align-items: center; /* 横方向に中央揃え */
 }
 
-/* ヘッダー部分のスタイル */
-.x-app-layout h1 {
-    font-size: 1.5rem;
-    text-align: center;
-    padding: 1rem;
-    background-color: #4CAF50;
+/* ヘッダー */
+header {
+    background-color: #ffa600;
     color: #fff;
+    padding: 15px;
+    text-align: center;
+    width: 93%; /* ヘッダーがコンテナの幅いっぱいに広がる */
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
-/* コンテナの調整 */
-.max-w-7xl {
-    max-width: 100%;
-    padding: 0 1rem;
+header h1 {
+    margin: 0;
+    font-size: 24px;
 }
 
-/* ボタン部分のスタイル */
-a {
+/* メインコンテンツ */
+main {
+    padding: 20px;
+    width: 100%; /* メインコンテンツがコンテナの幅いっぱいに広がる */
+}
+
+/* ボタンセクション */
+.button-section {
+    margin-bottom: 20px;
+}
+
+/* ボタン */
+.button {
     display: block;
-    width: 100%;
-    padding: 1.25rem;
-    font-size: 1.125rem;
-    color: #333;
-    text-decoration: none;
     text-align: center;
-    border-radius: 0.5rem;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-a:hover {
-    background-color: #4CAF50;
+    background-color: #007bff;
     color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
 }
 
-/* 各ボタンの個別スタイル */
-a[href*="login"] {
-    background-color: #f9f9f9;
-    border: 2px solid #4CAF50;
-    margin-bottom: 1rem;
+.button:hover {
+    background-color: #0056b3;
 }
 
-a[href*="register"] {
-    background-color: #fff;
-    border: 2px solid #4CAF50;
-}
+/* フッター */
 
-a:hover[href*="login"], a:hover[href*="register"] {
-    background-color: #4CAF50;
+/* footer {
+    background-color: #007bff;
     color: #fff;
-}
-
-/* 全体のパディング調整 */
-.py-12 {
-    padding: 2rem 0;
-}
-
-/* フッターの位置調整 */
-.x-app-layout > div:last-child {
-    margin-top: auto;
-}
+    text-align: center;
+    padding: 10px;
+    width: 100%; 
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    font-size: 14px;
+} */

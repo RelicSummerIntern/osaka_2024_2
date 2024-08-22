@@ -204,6 +204,7 @@
             <p>外部イベントがありません。</p>
         @endif
 
+
         <div class="navigation">
             <button onclick="location.href='{{ url('/mypage') }}'">マイページ</button>
             <button onclick="location.href='{{ url('/events') }}'">イベント</button>

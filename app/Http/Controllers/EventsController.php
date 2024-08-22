@@ -26,6 +26,7 @@ class EventsController extends Controller
     /**
      * Display the specified resource.
      */
+
     public function show(Request $request, $datetime) //2024-08-23など
     {   
         // datetimeパラメータを日付として変換
