@@ -3,46 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>コミュニティ：{{ $comm_name }}</title>
+    <title>コミュニティ{{ $comm_name }}</title>
     <link rel="stylesheet" href="{{ asset('css/mypage.css') }}">
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f4f4f9;
+            background-color: #f5f5f5;
+            color: #333;
             margin: 0;
             padding: 0;
         }
         .community-container {
+            width: 100%;
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #ffffff;
+            background: #fff;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         h2 {
-            font-size: 1.5rem;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 18px;
             color: #333;
-            margin-bottom: 10px;
         }
-        .members-list, .chat-list {
-            margin-top: 10px;
+        .members-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
-        .member-item, .chat-item {
-            background-color: #ffffff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+        .member-item {
+            display: flex;
+            align-items: center;
             padding: 10px;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .member-item img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+        .member-item h1 {
+            font-size: 16px;
+            margin: 0;
+        }
+        .chat-list {
+            margin-bottom: 20px;
         }
         .chat-item {
             display: flex;
-            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 10px;
         }
-        .chat-item h1 {
-            font-size: 1rem;
-            margin: 0;
+        .chat-item.mine {
+            justify-content: flex-end;
+        }
+        .chat-item.others {
+            justify-content: flex-start;
+        }
+        .chat-text {
+            background-color: #e0f7fa;
+            border-radius: 15px;
+            padding: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        .chat-text.mine {
+            background-color: #d1c4e9;
+        }
+        .chat-time {
+            font-size: 12px;
+            color: #888;
+            white-space: nowrap;
+        }
+        .chat-author {
+            font-weight: bold;
         }
         .navigation {
             display: flex;
@@ -50,14 +90,13 @@
             margin-top: 20px;
         }
         .navigation button {
-            background-color: #007bff; 
-            color: #ffffff;
+            background-color: #007bff;
+            color: #fff;
             border: none;
-            padding: 10px 20px;
             border-radius: 5px;
+            padding: 10px 15px;
             cursor: pointer;
-            font-size: 0.9rem;
-            transition: background-color 0.3s;
+            font-size: 14px;
         }
         .navigation button:hover {
             background-color: #0056b3;
@@ -71,6 +110,8 @@
         <div class="members-list">
             @foreach ($members as $member)
                 <div class="member-item">
+                    <!-- プロフィール画像（仮のURL、実際にはユーザーの画像URLを使用） -->
+                    <!-- <img src="{{ $member->profile_picture_url ?? 'path/to/default/profile.jpg' }}" alt="{{ $member->name }}"> -->
                     <h1>{{ $member->name }} さん</h1>
                 </div>
             @endforeach
@@ -80,12 +121,16 @@
         <h2>掲示板</h2>
         <div class="chat-list">
             @foreach ($commchat as $chat)
-                <div class="chat-item">
-                    <h1>
-                        {{ $chat->user->name }} さん<br>
-                        「{{ $chat->text }}」<br>
-                        <span style="font-size: 0.8rem; color: #888;">{{ $chat->created_at->diffForHumans() }}</span>
-                    </h1>
+                <div class="chat-item {{ $chat->user_id == Auth::id() ? 'mine' : 'others' }}">
+                    @if ($chat->user_id != Auth::id())
+                        <div class="chat-author">{{ $chat->user->name }} さん</div>
+                    @endif
+                    <div class="chat-text {{ $chat->user_id == Auth::id() ? 'mine' : '' }}">
+                        {{ $chat->text }}
+                    </div>
+                    <div class="chat-time">
+                        {{ $chat->created_at->diffForHumans() }}
+                    </div>
                 </div>
             @endforeach
         </div>
