@@ -46,7 +46,7 @@
                             .then(response => response.json())
                             .then(data => {
                                 successCallback(data.map(event => ({
-                                    id: event.id,
+                                    // id: event.id,
                                     title: event.title,
                                     start: event.held_datetime,
                                     end: event.end_time || null,
@@ -59,7 +59,9 @@
                         window.location.href = '/events/' + info.dateStr; // 選択された日付のイベント一覧ページに遷移
                     },
                     eventClick: function(info) {
-                        window.location.href = '/events/' + info.event.id; // クリックされたイベントの詳細ページに遷移
+                        // イベントの開始日時に基づいて該当の日のイベントリストページに遷移
+                        var eventDate = info.event.start.toISOString().split('T')[0]; // YYYY-MM-DD形式の日付を取得
+                        window.location.href = '/events/' + eventDate; 
                     }
                 });
                 calendar.render();
