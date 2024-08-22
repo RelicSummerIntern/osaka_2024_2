@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\CommEvents;
+use App\Models\OuterEvents;
 use Illuminate\Http\Request;
 
-class CommEventsController extends Controller
+class EventsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-
         // $user_id = Auth::id(); // 現在ログインしているユーザのIDを取得
 
         $events = CommEvents::all();
@@ -20,25 +20,22 @@ class CommEventsController extends Controller
         // ビューにデータを渡す
         return view('event.show',[
             'events' => $events //所属コミュニティ情報
-            
         ]);
- 
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display the specified resource.
      */
-    public function create(Request $request)
+    public function show()
     {
-        $event =new CommEventS();
-        $event->title = $request->input('title');
-        $event->description = $request->input('description');
-        $event->start_time = $request->input('start_time');
-        $event->end_time = $request->input('end_time');
-        $event->location = $request->input('location');
-        $event->save();
+        // $events =CommEvents::findOrFail($commEvents);
+        $comm_events = CommEvents::all();
+        $outer_events = OuterEvents::all();
+        return view('event.show',[
+            'comm_events' => $comm_events // 所属コミュニティのイベント
+            "outer_events" => $outer_events // 
+        ]);    
 
-        return redirect()->back();
     }
 
     /**
@@ -49,18 +46,7 @@ class CommEventsController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(CommEvents $commEvents)
-    {
-        // $events =CommEvents::findOrFail($commEvents);
-        $events = CommEvents::all();
-        return view('event.show',[
-            'events' => $events //所属コミュニティ情報
-        ]);    
 
-    }
 
     
     //  * Show the form for editing the specified resource.
