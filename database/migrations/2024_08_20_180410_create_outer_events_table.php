@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('outer_events', function (Blueprint $table) {
             $table->id();
+            $table->string('title'); //イベントタイトル
             $table->datetime("held_datetime"); //開催日時
             $table->string("URL"); //URL
+            $table->timestamps(); // 登録した時間
         });
     }
 
