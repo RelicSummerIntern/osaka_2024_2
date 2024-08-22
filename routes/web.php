@@ -55,23 +55,27 @@ Route::middleware('auth')->group(function () {
 
 });
 
+//======コミュニティ一覧まわりのルート======
 Route::middleware('auth')->group(function () {
-    //======コミュニティ一覧まわりのルート======
-    //コミュニティ一覧のページ表示
+    // コミュニティ一覧のページ表示
     Route::get('/community', [CommsController::class, 'index'])->name('comms.index');
-    //コミュニティに入るとき、そのユーザがコミュニティに属しているか確認（基本的にはこちらを呼び出す）
+    // コミュニティに入るとき、そのユーザがコミュニティに属しているか確認（基本的にはこちらを呼び出す）
     Route::get('/community/{comm_id}/enter', [CommsController::class, 'enter'])->name('comms.enter');
     // コミュニティの詳細ページへ直接移動（comms.enterで呼び出す）
     Route::get('/community/{comm_id}', [CommunityController::class, 'index'])->name('community.index');
 });
 
-//イベント一覧、作成のルート
-Route::get('/fetch-events', [CommEventsController::class, 'index']);
+//======イベントまわりのルート======
+Route::middleware('auth')->group(function () {
+    // イベント一覧、作成のルート
+    Route::get('/fetch-events', [CommEventsController::class, 'index']);
 
-Route::post('/create-event', [CommEventsController::class, 'create']);
+    // コミュ二ティイベント作成
+    Route::post('/create-event', [CommEventsController::class, 'create']);
 
-//イベント詳細のルート
-Route::get('/events/{id}', [CommEventsController::class, 'show']);
+    // イベント詳細のルート
+    Route::get('/events/{id}', [CommEventsController::class, 'show']);
+});
 
 require __DIR__.'/auth.php';
 
