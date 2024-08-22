@@ -6,6 +6,7 @@ use App\Http\Controllers\CommsController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CommEventsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +64,13 @@ Route::middleware('auth')->group(function () {
     // コミュニティの詳細ページへ直接移動（comms.enterで呼び出す）
     Route::get('/community/{comm_id}', [CommunityController::class, 'index'])->name('community.index');
 });
+
+//イベント一覧、作成のルート
+Route::get('/fetch-events', [CommEventsController::class, 'index']);
+Route::post('/create-event', [CommEventsController::class, 'create']);
+
+//イベント詳細のルート
+Route::get('/events/{id}', [CommEventsController::class, 'show']);
 
 require __DIR__.'/auth.php';
 

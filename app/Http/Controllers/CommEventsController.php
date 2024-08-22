@@ -12,15 +12,24 @@ class CommEventsController extends Controller
      */
     public function index()
     {
-        //
+        $events = CommEvents::all();
+        return response()->json($events);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $event =new CommEventS();
+        $event->title = $request->input('title');
+        $event->description = $request->input('description');
+        $event->start_time = $request->input('start_time');
+        $event->end_time = $request->input('end_time');
+        $event->location = $request->input('location');
+        $event->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -36,12 +45,13 @@ class CommEventsController extends Controller
      */
     public function show(CommEvents $commEvents)
     {
-        //
+        $event =CommEvents::findOrFail($commEvents);
+        return view('event.show', compact('event'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    
+    //  * Show the form for editing the specified resource.
+    //  *
     public function edit(CommEvents $commEvents)
     {
         //
