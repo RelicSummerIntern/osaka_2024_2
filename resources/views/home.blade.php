@@ -1,31 +1,42 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h1 class="font-bold text-xl text-gray-800 leading-tight">
-            なごみネット
-        </h1>
-    </x-slot>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>なごみネット</title>
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+</head>
+<body>
+    <div class="container-wrapper">
+        <header>
+            <h1>なごみネット</h1>
+        </header>
+        <form method="POST" action="{{ route('logout') }}">
+                    @csrf
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <a href="{{ route('login') }}" class="bg-white border-b border-gray-200 p-6 block w-full text-center
-                font-semibold text-gray-800 hover:bg-gray-100 text-decoration-none">
+                    <x-responsive-nav-link :href="route('logout')"
+                            onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                        {{ __('Log Out') }}
+                    </x-responsive-nav-link>
+                </form>
 
+        <main>
+            <section class="button-section">
+                <a href="{{ route('login') }}" class="button">
                     ログイン
-
                 </a>
-            </div>
-        </div>
-    </div>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <a href="{{ route('register') }}" class="bg-white border-b border-gray-200 p-6 block w-full text-center
-                font-semibold text-gray-800 hover:bg-gray-100 text-decoration-none">
+            </section>
+            <section class="button-section">
+                <a href="{{ route('register') }}" class="button">
                     新規登録
                 </a>
-            </div>
-        </div>
+            </section>
+        </main>
+
+        <footer>
+            <!-- <p>&copy; 2024 なごみネット</p> -->
+        </footer>
     </div>
-</x-app-layout> 
+</body>
+</html>
