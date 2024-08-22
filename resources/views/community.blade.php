@@ -102,6 +102,64 @@
             background-color: #0056b3;
         }
     </style>
+     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* 横スクロールの防止 */
+        }
+        .event-create {
+            margin: 20px auto;
+            padding: 15px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+            width: 400px;
+            box-sizing: border-box; /* パディングとボーダーを含む */
+        }
+        .event-create h3 {
+            font-size: 20px;
+            color: #007bff;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .event-create label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        .event-create input, .event-create textarea {
+            width: calc(100% - 16px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        .event-create textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .event-create button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .event-create button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <div class="community-container">
@@ -134,11 +192,42 @@
                 </div>
             @endforeach
         </div>
+         <!-- イベント作成フォーム -->
+      
+            <div class="event-create">
+                <h3>イベント作成</h3>
+                <form action="/create-event" method="post">
+                    @csrf
+                    <label for="title">イベント名:</label>
+                    <input type="text" id="title" name="title" required>
+                    
+                    <label for="description">詳細:</label>
+                    <textarea id="description" name="description"></textarea>
+                    
+                    <label for="start_time">開始日時:</label>
+                    <input type="datetime-local" id="start_time" name="start_time" required>
+                    
+                    <label for="end_time">終了日時:</label>
+                    <input type="datetime-local" id="end_time" name="end_time">
+                    
+                    <label for="location">場所:</label>
+                    <input type="text" id="location" name="location">
+                    
+                    <button type="submit">作成</button>
+                </form>
+            </div>
+
+
+
+       
+
 
         <div class="navigation">
             <button onclick="location.href='{{ url('/mypage') }}'">マイページ</button>
             <button onclick="location.href='{{ url('/events') }}'">イベント</button>
         </div>
+
+
     </div>
 </body>
 </html>

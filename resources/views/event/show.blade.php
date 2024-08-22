@@ -17,14 +17,15 @@
             <?php foreach ($events as $event): ?>
                 <h2><?php echo htmlspecialchars($event->title); ?></h2> <!-- イベントのタイトル -->
                 <p><?php echo nl2br(htmlspecialchars($event->description)); ?></p> <!-- イベントの説明 -->
-                <p>開始日時: <?php echo htmlspecialchars($event->start_time); ?></p> <!-- 開始日時 -->
+                <p>開始日時: <?php echo htmlspecialchars($event->held_datetime); ?></p> <!-- 開始日時 -->
                 <p>終了日時: <?php echo htmlspecialchars($event->end_time); ?></p> <!-- 終了日時 -->
-                <p>場所: <?php echo htmlspecialchars($event->location); ?></p> <!-- 場所 -->
+                <p>場所: <?php echo htmlspecialchars($event->held_place); ?></p> <!-- 場所 -->
             <?php endforeach; ?>
         <?php else: ?>
             <p>表示するイベントがありません。</p>
         <?php endif; ?>
     </main>
+    
 
     <footer>
         <p>&copy; 2024 イベント管理システム</p>

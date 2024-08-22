@@ -12,6 +12,7 @@ class CommEventsController extends Controller
      */
     public function index()
     {
+
         // $user_id = Auth::id(); // 現在ログインしているユーザのIDを取得
 
         $events = CommEvents::all();
@@ -21,6 +22,7 @@ class CommEventsController extends Controller
             'events' => $events //所属コミュニティ情報
             
         ]);
+ 
     }
 
     /**
