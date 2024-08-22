@@ -67,6 +67,7 @@ Route::middleware('auth')->group(function () {
 
 //イベント一覧、作成のルート
 Route::get('/fetch-events', [CommEventsController::class, 'index']);
+
 Route::post('/create-event', [CommEventsController::class, 'create']);
 
 //イベント詳細のルート
