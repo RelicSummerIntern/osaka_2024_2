@@ -16,9 +16,16 @@ return new class extends Migration
     {
         Schema::create('comm_chats', function (Blueprint $table) {
             $table->id();
-            $table->foreign("comm_id")->references("id")->on("comms");
-            $table->foreign("user_id")->references("id")->on("users");
-            $table->string("text");
+
+            // comm_id
+            $table->unsignedBigInteger('comm_id'); 
+            $table->foreign('comm_id')->references('id')->on('comms')->onDelete('cascade'); // comm_idを連携
+            // user_id
+            $table->unsignedBigInteger('user_id'); 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // user_idを連携
+
+            $table->string("text"); //本文
+
             $table->timestamps();
         });
     }

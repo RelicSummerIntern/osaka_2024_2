@@ -99,7 +99,7 @@
 
 
         <div class="navigation">
-            <button onclick="location.href='community.php'">コミュニティ</button>
+            <button onclick="location.a href={{route('comms.index')}}">コミュニティ</button>
             <button onclick="location.href='events.php'">イベント</button>
         </div>
     </div>
