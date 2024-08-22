@@ -61,7 +61,7 @@ Route::middleware('auth')->group(function () {
     //コミュニティに入るとき、そのユーザがコミュニティに属しているか確認（基本的にはこちらを呼び出す）
     Route::get('/community/{comm_id}/enter', [CommsController::class, 'enter'])->name('comms.enter');
     // コミュニティの詳細ページへ直接移動（comms.enterで呼び出す）
-    Route::get('/community/{comm_id}', [CommunityController::class, 'show'])->name('community.show');
+    Route::get('/community/{comm_id}', [CommunityController::class, 'index'])->name('community.index');
 });
 
 require __DIR__.'/auth.php';

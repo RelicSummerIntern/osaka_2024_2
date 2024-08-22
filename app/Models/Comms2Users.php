@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Comms2Users extends Model
 {
     use HasFactory;
+    
+    /**
+     * ユーザーとのリレーションを定義
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
