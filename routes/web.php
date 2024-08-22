@@ -78,7 +78,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/create-event', [CommEventsController::class, 'create']);
 
     // イベント詳細のルート
-    Route::get('/events/{id}', [EventsController::class, 'show']);
+    Route::get('/events/{datetime}', [EventsController::class, 'show']);
 });
 
 require __DIR__.'/auth.php';

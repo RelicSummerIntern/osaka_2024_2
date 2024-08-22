@@ -26,16 +26,20 @@ class EventsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show()
-    {
-        // $events =CommEvents::findOrFail($commEvents);
-        $comm_events = CommEvents::all();
-        $outer_events = OuterEvents::all();
-        return view('event.show',[
-            'comm_events' => $comm_events // 所属コミュニティのイベント
-            "outer_events" => $outer_events // 
+    public function show(Request $request, $datetime) //2024-08-23など
+    {   
+        // datetimeパラメータを日付として変換
+        $date = \Carbon\Carbon::createFromFormat('Y-m-d', $datetime);
+        // 該当日のコミュニティイベントを取得
+        $comm_events = CommEvents::with('comms')->whereDate('held_datetime', $date)->get();
+        // 該当日の外部イベントを取得
+        $outer_events = OuterEvents::whereDate('held_datetime', $date)->get();
+        // ビューにデータを渡す
+        return view('event.show', [
+            'comm_events' => $comm_events, // 所属コミュニティのイベント
+            'outer_events' => $outer_events, // 外部イベント
+            "date" => $date
         ]);
-
     }
 
     /**
