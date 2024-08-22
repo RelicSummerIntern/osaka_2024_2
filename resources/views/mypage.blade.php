@@ -1,27 +1,19 @@
-
-<!-- スマホアプリ用のHTML -->
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-   
-
     <title>マイページ</title>
     <link rel="stylesheet" href="{{ asset('css/mypage.css') }}">
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css' rel='stylesheet' />
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js'></script>
-
-   
 </head>
 <body>
     <div class="mypage-container">
         <h2>マイページ</h2>
         <div class="user-info">
             <p><strong>ユーザー名:</strong> {{ $user->name }} </p>
-            <!-- <p><strong>メールアドレス:</strong> superOjichan123@example.com</p> -->
-            <p><staitrong>今日の:体調</strong> 😊</p>
+            <p><strong>今日の体調:</strong> 😊</p>
         </div>
         <div class="mood-update">
             <h3>今日の体調を更新しましょう！</h3>
@@ -49,7 +41,20 @@
                         center: 'title',
                         right: 'dayGridMonth,timeGridWeek,timeGridDay'
                     },
-                    events: '/fetch-events',
+                    events: function(info, successCallback, failureCallback) {
+                        fetch('/fetch-user-events')
+                            .then(response => response.json())
+                            .then(data => {
+                                successCallback(data.map(event => ({
+                                    id: event.id,
+                                    title: event.title,
+                                    start: event.held_datetime,
+                                    end: event.end_time || null,
+                                    // 他の必要なフィールドも追加
+                                })));
+                            })
+                            .catch(failureCallback);
+                    },
                     dateClick: function(info) {
                         window.location.href = '/events/' + info.dateStr; // 選択された日付のイベント一覧ページに遷移
                     },
@@ -59,12 +64,7 @@
                 });
                 calendar.render();
             });
-
         </script>
-        
-      
-
-            
 
 
         <div class="navigation">
