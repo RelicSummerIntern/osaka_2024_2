@@ -35,8 +35,7 @@ class CommsController extends Controller
         return redirect()->route('community.index',
             ['user_id' => $user_id, 'comm_id' => $comm_id]);
         
-        // OKなら、コミュニティページに飛ばす
-        // return redirect()->route('community.show',['id' => $comm_id]);
+
     }
     
     // コミュニティに属しているかを確認する
