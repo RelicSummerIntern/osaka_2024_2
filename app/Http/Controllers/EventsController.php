@@ -34,7 +34,7 @@ class EventsController extends Controller
         return view('event.show',[
             'comm_events' => $comm_events // 所属コミュニティのイベント
             "outer_events" => $outer_events // 
-        ]);    
+        ]);
 
     }
 
