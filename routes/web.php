@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CommEventsController;
 use App\Http\Controllers\EventsController;
-
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +75,8 @@ Route::middleware('auth')->group(function () {
     // イベント詳細のルート
     Route::get('/events/{datetime}', [EventsController::class, 'show']);
 });
+
+Route::post('/update-mood', [UserController::class, 'updateMood']);
 
 require __DIR__.'/auth.php';
 
