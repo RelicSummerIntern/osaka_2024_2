@@ -13,11 +13,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('comm_events', function (Blueprint $table) {
-            $table->id();
-            $table->foreign("comm_id")->references("id")->on("comms"); //コミュニティid
-            $table->datetime("held_datetime"); //開催日時
-            $table->string("held_place"); //開催場所
-            $table->timestamp(); //登録した時間
+            $table->id(); // イベントの主キー
+            $table->unsignedBigInteger('comm_id'); // comm_idカラム（）
+            // comm_idを連携
+            $table->foreign('comm_id')->references('id')->on('comms')->onDelete('cascade');
+            $table->datetime('held_datetime'); // 開催日時
+            $table->string('held_place'); // 開催場所
+            $table->timestamps(); // 登録した時間
         });
     }
 

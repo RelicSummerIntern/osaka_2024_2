@@ -16,8 +16,12 @@ return new class extends Migration
     {
         Schema::create('comms2_users', function (Blueprint $table) {
             $table->id();
-            $table->foreign("user_id")->references("id")->on("users"); //コミュニティid
-            $table->foreign("comm_id")->references("id")->on("comms"); //コミュニティid
+            // comm_id
+            $table->unsignedBigInteger('comm_id'); 
+            $table->foreign('comm_id')->references('id')->on('comms')->onDelete('cascade'); // comm_idを連携（元が削除されたとき、こちらも物理削除される）
+            // user_id
+            $table->unsignedBigInteger('user_id'); 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // user_idを連携
         });
     }
 
