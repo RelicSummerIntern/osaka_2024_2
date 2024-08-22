@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommsController;
 use App\Http\Controllers\CommunityController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,16 +42,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/post/{id}', [PostController::class, 'destroy'])->name('post.destroy');
     
     // マイページ
-    Route::get('/mypage',function(){
-        return view('mypage');
-    
-    })->name('mypage');
+    Route::get('/mypage', [HomeController::class, 'index'])->name('mypage');
+
 
     // カレンダーのイベントなどのデータベースを引っ張るもの（仮）
     Route::get('/fetch-events', function() {
         $events = DB::table('events')->select('id', 'title', 'start', 'end')->get();
         return response()->json($events);
     });
+
 
 });
 
