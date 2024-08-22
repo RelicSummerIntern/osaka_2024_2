@@ -45,30 +45,24 @@ Route::middleware('auth')->group(function () {
     Route::get('/mypage', [HomeController::class, 'index'])->name('mypage');
 
 
+    // カレンダーのイベントなどのデータベースを引っ張るもの（仮）
+    Route::get('/fetch-events', function() {
+        $events = DB::table('events')->select('id', 'title', 'start', 'end')->get();
+        return response()->json($events);
+    });
+
+
 });
 
-// 登録後のマイページへのルート
-
-// Route::get('/mypage',function(){
-//     return view('mypage');
-
-// })->name('mypage');
-
-// カレンダーのイベントなどのデータベースを引っ張るもの（仮）
-
-Route::get('/fetch-events', function() {
-    $events = DB::table('events')->select('id', 'title', 'start', 'end')->get();
-    return response()->json($events);
+Route::middleware('auth')->group(function () {
+    //======コミュニティ一覧まわりのルート======
+    //コミュニティ一覧のページ表示
+    Route::get('/community', [CommsController::class, 'index'])->name('comms.index');
+    //コミュニティに入るとき、そのユーザがコミュニティに属しているか確認（基本的にはこちらを呼び出す）
+    Route::get('/community/{comm_id}/enter', [CommsController::class, 'enter'])->name('comms.enter');
+    // コミュニティの詳細ページへ直接移動（comms.enterで呼び出す）
+    Route::get('/community/{comm_id}', [CommunityController::class, 'index'])->name('community.index');
 });
-
-//======コミュニティ一覧まわりのルート======
-//コミュニティ一覧のページ表示
-Route::get('/community', [CommsController::class, 'index'])->name('comms.index');
-//コミュニティに入るとき、そのユーザがコミュニティに属しているか確認（基本的にはこちらを呼び出す）
-Route::get('/community/{comm_id}/enter', [CommsController::class, 'enter'])->name('comms.enter');
-// コミュニティの詳細ページへ直接移動（comms.enterで呼び出す）
-Route::get('/community/{comm_id}', [CommunityController::class, 'show'])->name('community.show');
-
 
 require __DIR__.'/auth.php';
 

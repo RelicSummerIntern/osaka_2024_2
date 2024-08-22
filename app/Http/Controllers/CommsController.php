@@ -18,36 +18,39 @@ class CommsController extends Controller
     {
         // 自分がコミュニティに属しているかを確認
         $user_id = Auth::id(); // 現在ログインしているユーザのIDを取得
-        $comm_id = request()->route('comm_id'); // ルートパラメータからコミュニティIDを取得
+        
+        // リクエストからコミュニティIDを取得し、コミュニティのレコードを取得
+        $comm_id = request()->route('comm_id');
+        $community = Comms::find($comm_id); // コミュニティのレコードを取得
+        
+        // コミュニティIDを取得
+        if (!$community) {
+            abort(404, 'コミュニティが見つかりません。');
+        }
+        
+        // コミュニティIDを基にチェックインを行う
         $this->_checkin($user_id, $comm_id);
         
         // OKなら、コミュニティページに飛ばす
-        return redirect()->route('community.show', ['id' => $comm_id]);
+        return redirect()->route('community.index',
+            ['user_id' => $user_id, 'comm_id' => $comm_id]);
+        
+        // OKなら、コミュニティページに飛ばす
+        return redirect()->route('community.index', ['comm_id' => $comm_id]);
     }
     
     // コミュニティに属しているかを確認する
-    private function _checkin(int $user_id, int $comm_id)
+    private function _checkin($user_id, $comm_id)
     {
-        // 中間テーブルを参照し、渡されたユーザIDとコミュニティIDの組合せがあるか確認
         $exists = Comms2Users::where('user_id', $user_id)
-                    ->where('comm_id', $comm_id)
-                    ->exists();
-    
-        // 組合せがない場合は、例外を投げる
+            ->where('comm_id', $comm_id)
+            ->exists();
+        
         if (!$exists) {
-            throw new \Exception('このコミュニティに属していません。');
+            abort(403, 'このコミュニティに所属していません。');
         }
+    }
     
-        // 組合せがある場合は何もしない（OK）
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Comms $comms)
-    {
-        //
-    }
     /**
      * コミュニティ一覧を表示
      */

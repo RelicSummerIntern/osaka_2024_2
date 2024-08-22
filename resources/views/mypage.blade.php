@@ -60,8 +60,7 @@
 
         <div class="navigation">
             <button onclick="location.href='{{ route('comms.index') }}'">コミュニティ</button>
-            
-            <button onclick="location.href='{{ route('comms.index') }}'">イベント</button>
+            <button onclick="location.href='events.php'">イベント</button>
         </div>
     </div>
 </body>
