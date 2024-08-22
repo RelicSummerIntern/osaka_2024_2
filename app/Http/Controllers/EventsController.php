@@ -33,7 +33,8 @@ class EventsController extends Controller
         $outer_events = OuterEvents::all();
         return view('event.show',[
             'comm_events' => $comm_events // 所属コミュニティのイベント
-            "outer_events" => $outer_events // 
+            
+            // "outer_events" => $outer_events 
         ]);    
 
     }
