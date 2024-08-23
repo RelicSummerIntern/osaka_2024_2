@@ -162,23 +162,11 @@
     </style>
 </head>
 <body>
-    <div class="community-container">
-        <!-- コミュニティのメンバリスト -->
-        <h2>メンバー一覧</h2>
-        <div class="members-list">
-            @foreach ($members as $member)
-                <div class="member-item {{ $member->id == Auth::id() ? 'self' : '' }}">
-                    <!-- プロフィール画像（仮のURL、実際にはユーザーの画像URLを使用） -->
-                    <img src="{{ $member->profile_picture_url ?? 'path/to/default/profile.jpg' }}" alt="{{ $member->name }} さんのプロフィール画像">
-                    <h1>{{ $member->name }} さん</h1>
-                </div>
-            @endforeach
-        </div>
-        
+    <div class="community-container">        
         <!-- コミュニティの掲示板 -->
         <h2>掲示板</h2>
         <div class="chat-list">
-            @foreach ($commchat as $chat)
+            @foreach ($commchat->reverse() as $chat) <!-- 逆順にする -->
                 <div class="chat-item {{ $chat->user_id == Auth::id() ? 'mine' : 'others' }}">
                     @if ($chat->user_id != Auth::id())
                         <div class="chat-author">{{ $chat->user->name }} さん</div>
@@ -189,6 +177,17 @@
                     <div class="chat-time">
                         {{ $chat->created_at->diffForHumans() }}
                     </div>
+                </div>
+            @endforeach
+        </div>
+        <!-- コミュニティのメンバリスト -->
+        <h2>メンバー一覧</h2>
+        <div class="members-list">
+            @foreach ($members as $member)
+                <div class="member-item {{ $member->id == Auth::id() ? 'self' : '' }}">
+                    <!-- プロフィール画像（仮のURL、実際にはユーザーの画像URLを使用） -->
+                    <img src="{{ $member->profile_picture_url ?? 'path/to/default/profile.jpg' }}" alt="{{ $member->name }} さんのプロフィール画像">
+                    <h1>{{ $member->name }} さん</h1>
                 </div>
             @endforeach
         </div>
