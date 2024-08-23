@@ -199,7 +199,9 @@
     </style>
 </head>
 <body>
-    <div class="community-container">        
+
+    <div class="community-container">  
+        <h2>【{{$comm_name}}】</h2>      
         <!-- コミュニティの掲示板 -->
         <h2>掲示板</h2>
         <div class="chat-list">
