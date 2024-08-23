@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\CommEvents;
+use Illuminate\Support\Facades\Auth; // Authクラスをインポート
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class CommEventsController extends Controller
@@ -30,17 +32,18 @@ class CommEventsController extends Controller
      */
     public function create(Request $request)
     {
-        $event =new CommEventS();
+        $event = new CommEvents();
         $event->title = $request->input('title');
-        $event->description = $request->input('description');
-        $event->start_time = $request->input('start_time');
+        $event->held_datetime = $request->input('held_datetime');
         $event->end_time = $request->input('end_time');
-        $event->location = $request->input('location');
+        $event->held_place = $request->input('held_place');
+        $event->comm_id = $request->input('comm_id');
         $event->save();
-
-        return redirect()->back();
+    
+        // セッションにフラッシュメッセージを保存
+        return redirect()->back()->with('event_success', 'イベントが正常に登録されました！');
     }
-
+    
     /**
      * Store a newly created resource in storage.
      */
@@ -62,14 +65,17 @@ class CommEventsController extends Controller
 
     }
 
-    // コミュニティイベントを取得し、カレンダーに反映
+    // コミュニティイベントを取得し、デバッグ用にイベント内容をログに表示
     public function fetchUserEvents(Request $request)
     {
         $userId = Auth::id(); // 現在のユーザーID
         $comm_ids = DB::table('comms2_users')->where('user_id', $userId)->pluck('comm_id'); // ユーザーが所属しているコミュニティのIDを取得
         
         $events = CommEvents::whereIn('comm_id', $comm_ids)->get(); // 所属コミュニティのイベントを取得
-    
+        
+        // デバッグ用にイベントの内容をログに表示
+        //Log::info('取得したイベント:', ['events' => $events->toArray()]);
+        
         return response()->json($events);
     }
 

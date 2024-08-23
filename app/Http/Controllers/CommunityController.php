@@ -44,9 +44,10 @@ class CommunityController extends Controller
     
         // ビューにデータを渡す
         return view('community', [
+            'comm_id' => $comm_id,  // コミュニティIDを追加
             'comm_name' => $comm_name,
-            'members' => $members, // members->id, condition, ...等の使い方を想定
-            'commchat' => $commchat, // チャット履歴
+            'members' => $members,
+            'commchat' => $commchat,
             'user_id' => $user_id,
         ]);
     }

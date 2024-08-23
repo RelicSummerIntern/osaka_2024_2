@@ -18,7 +18,7 @@
         }
         .mypage-container {
             width: 100%;
-            max-width: 800px; /* デスクトップ向けの幅 */
+            max-width: 800px;
             padding: 20px;
             background: #fff;
             border-radius: 12px;
@@ -26,7 +26,7 @@
             box-sizing: border-box;
         }
         h2 {
-            font-size: 32px; /* フォントサイズを大きく */
+            font-size: 32px;
             color: #007bff;
             margin-bottom: 20px;
         }
@@ -34,10 +34,11 @@
             margin-bottom: 20px;
         }
         .user-info p {
-            font-size: 18px; /* フォントサイズを大きく */
+            font-size: 18px;
             margin: 5px 0;
         }
         .community-list {
+
             margin-bottom: 20px;
         }
         .community-item {
@@ -93,10 +94,11 @@
         }
         .search-results .result-item a:hover {
             text-decoration: underline;
+
         }
         .navigation {
             display: flex;
-            justify-content: space-between; /* 横並びにする */
+            justify-content: space-between;
             gap: 10px;
             margin-top: 20px;
         }
@@ -107,8 +109,8 @@
             border-radius: 8px;
             padding: 12px;
             cursor: pointer;
-            font-size: 18px; /* フォントサイズを大きく */
-            flex: 1; /* ボタンを均等に広げる */
+            font-size: 18px;
+            flex: 1;
         }
         .navigation button:hover {
             background-color: #0056b3;

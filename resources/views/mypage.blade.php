@@ -67,7 +67,11 @@
                         window.location.href = '/events/' + info.dateStr;
                     },
                     eventClick: function(info) {
-                        window.location.href = '/events/' + info.event.id;
+
+
+                        // イベントの開始日時に基づいて該当の日のイベントリストページに遷移
+                        var eventDate = info.event.start.toISOString().split('T')[0]; // YYYY-MM-DD形式の日付を取得
+                        window.location.href = '/events/' + eventDate; 
                     }
                 });
                 calendar.render();
