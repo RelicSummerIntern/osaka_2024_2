@@ -37,40 +37,62 @@
             font-size: 18px; /* フォントサイズを大きく */
             margin: 5px 0;
         }
-        .mood-update {
+        .community-list {
             margin-bottom: 20px;
-            background: #e0f7fa;
+        }
+        .community-item {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .community-item a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .community-item a:hover {
+            text-decoration: underline;
+        }
+        .search-bar {
+            margin-bottom: 20px;
+        }
+        .search-bar input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        .search-bar button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .search-bar button:hover {
+            background-color: #0056b3;
+        }
+        .search-results {
+            margin-bottom: 20px;
+            background: #f9f9f9;
             padding: 15px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        .mood-update h3 {
-            font-size: 24px; /* フォントサイズを大きく */
+        .search-results .result-item {
             margin-bottom: 10px;
+            font-size: 18px;
         }
-        .mood-update label {
-            font-weight: bold;
-            margin-bottom: 5px;
-            display: block;
+        .search-results .result-item a {
+            color: #007bff;
+            text-decoration: none;
         }
-        .mood-update select, .mood-update button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-        }
-        .mood-update button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-        .mood-update button:hover {
-            background-color: #0056b3;
-        }
-        #calendar {
-            margin-top: 20px;
+        .search-results .result-item a:hover {
+            text-decoration: underline;
         }
         .navigation {
             display: flex;
@@ -99,6 +121,18 @@
         <div class="user-info">
             <p><strong>ユーザー名:</strong> {{ $user->name }} </p>
         </div>
+
+        <!-- 検索フォーム -->
+        <div class="search-bar">
+            <input type="text" placeholder="検索 (ex ...テニス)" id="searchQuery">
+            <button onclick="searchCommunity()">検索</button>
+        </div>
+
+        <!-- 検索結果リスト -->
+        <div class="search-results" id="searchResults">
+            <!-- 検索結果がここに表示されます -->
+        </div>
+
         <!-- コミュニティリスト -->
         <div class="community-list">
             @foreach ($comms as $community)
@@ -115,5 +149,13 @@
             <button onclick="location.href='events.php'">イベント</button>
         </div>
     </div>
+
+    <script>
+        function searchCommunity() {
+            const query = document.getElementById('searchQuery').value;
+            // AJAXリクエストなどで検索を行い、結果を表示する処理を追加できます。
+            document.getElementById('searchResults').innerHTML = `<div class="result-item">検索結果: ${query}</div>`;
+        }
+    </script>
 </body>
 </html>

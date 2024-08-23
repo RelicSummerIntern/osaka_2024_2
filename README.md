@@ -35,8 +35,8 @@ docker-compose exec laravel.test npm run dev
 ## 停止する方法
 
 ```sh
-docker-compose stop
-```
+ docker-compose stop
+
 
 ## URL
 サンプルアプリ：http://localhost/
