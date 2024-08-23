@@ -49,16 +49,24 @@
             font-weight: bold;
         }
         .event-item .event-date {
-            font-size: 14px;
+            font-size: 18px;
             color: #888;
         }
         .event-item .event-location {
-            font-size: 14px;
+            font-size: 18px;
+        }
+        .event-item .event-comm a {
+            text-decoration: none;
+            color: #007bff;
+            font-size: 18px;
+        }
+        .event-item .event-comm a:hover {
+            text-decoration: underline;
         }
         .navigation {
             display: flex;
             justify-content: space-between;
-            margin-top: 20px;
+            margin-top: 18px;
         }
         .navigation button {
             background-color: #007bff;
@@ -167,13 +175,11 @@
                         終了日時: 
                         @if ($event->end_time)
                             {{ \Carbon\Carbon::parse($event->end_time)->format('m/d H:i') }}
-                        @else
-                            空
                         @endif
                     </p>
                     <p class="event-location">場所: {{ htmlspecialchars($event->held_place) }}</p>
                     <p>{{ nl2br(htmlspecialchars($event->description)) }}</p>
-                    <p>
+                    <p class="event-comm">
                         <!-- コミュニティ名をリンクにする -->
                         <a href="{{ url('/community/' . $event->comms->id . '/enter') }}">
                             {{ htmlspecialchars($event->comms->name) }}
@@ -203,7 +209,6 @@
         @else
             <p>外部イベントがありません。</p>
         @endif
-
 
         <div class="navigation">
             <button onclick="location.href='{{ url('/mypage') }}'">マイページ</button>
