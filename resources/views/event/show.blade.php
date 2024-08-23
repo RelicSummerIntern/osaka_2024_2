@@ -55,8 +55,13 @@
         .event-item .event-location {
             font-size: 18px;
         }
-        .event-item .event-comm {
+        .event-item .event-comm a {
+            text-decoration: none;
+            color: #007bff;
             font-size: 18px;
+        }
+        .event-item .event-comm a:hover {
+            text-decoration: underline;
         }
         .navigation {
             display: flex;
@@ -204,7 +209,6 @@
         @else
             <p>外部イベントがありません。</p>
         @endif
-
 
         <div class="navigation">
             <button onclick="location.href='{{ url('/mypage') }}'">マイページ</button>
