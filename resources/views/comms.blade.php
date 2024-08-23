@@ -18,7 +18,7 @@
         }
         .mypage-container {
             width: 100%;
-            max-width: 800px; /* デスクトップ向けの幅 */
+            max-width: 800px;
             padding: 20px;
             background: #fff;
             border-radius: 12px;
@@ -26,7 +26,7 @@
             box-sizing: border-box;
         }
         h2 {
-            font-size: 32px; /* フォントサイズを大きく */
+            font-size: 32px;
             color: #007bff;
             margin-bottom: 20px;
         }
@@ -34,47 +34,33 @@
             margin-bottom: 20px;
         }
         .user-info p {
-            font-size: 18px; /* フォントサイズを大きく */
+            font-size: 18px;
             margin: 5px 0;
         }
-        .mood-update {
-            margin-bottom: 20px;
+        .community-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* 項目間のスペースを追加 */
+        }
+        .community-item {
             background: #e0f7fa;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
         }
-        .mood-update h3 {
+        .community-item:hover {
+            transform: scale(1.05);
+        }
+        .community-item a {
+            text-decoration: none;
+            color: #007bff;
             font-size: 24px; /* フォントサイズを大きく */
-            margin-bottom: 10px;
-        }
-        .mood-update label {
             font-weight: bold;
-            margin-bottom: 5px;
-            display: block;
-        }
-        .mood-update select, .mood-update button {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-        }
-        .mood-update button {
-            background-color: #007bff;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-        .mood-update button:hover {
-            background-color: #0056b3;
-        }
-        #calendar {
-            margin-top: 20px;
         }
         .navigation {
             display: flex;
-            justify-content: space-between; /* 横並びにする */
+            justify-content: space-between;
             gap: 10px;
             margin-top: 20px;
         }
@@ -85,8 +71,8 @@
             border-radius: 8px;
             padding: 12px;
             cursor: pointer;
-            font-size: 18px; /* フォントサイズを大きく */
-            flex: 1; /* ボタンを均等に広げる */
+            font-size: 18px;
+            flex: 1;
         }
         .navigation button:hover {
             background-color: #0056b3;
