@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>マイページ</title>
     <link rel="stylesheet" href="{{ asset('css/mypage.css') }}">
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css' rel='stylesheet' />
@@ -13,21 +15,33 @@
         <h2>マイページ</h2>
         <div class="user-info">
             <p><strong>ユーザー名:</strong> {{ $user->name }} </p>
-            <p><strong>今日の体調:</strong> 😊</p>
+            
         </div>
-        <div class="mood-update">
-            <h3>今日の体調を更新しましょう！</h3>
-            <form action="update_mood.php" method="post">
-                <label for="mood">体調</label>
-                <select id="mood" name="mood">
-                    <option value="😊">😊</option>
-                    <option value="😐">😐</option>
-                    <option value="😢">😢</option>
-                    <option value="😠">😠</option>
-                </select>
-                <button type="submit">更新</button>
-            </form>
+
+        <div class="current-mood" id="currentMood">
+            @if ($user->mood === '良い')
+                😊
+            @elseif ($user->mood === '普通')
+                😐
+            @elseif ($user->mood === '悪い')
+                😟
+            @else
+                🤔
+            @endif
         </div>
+
+        <select id="moodSelect">
+    <option value="😊">😊 元気</option>
+    <option value="😐">😐 普通</option>
+    <option value="😟">😟 体調悪い</option>
+</select>
+<button id="moodUpdateButton">更新</button>
+
+<!-- 顔文字を表示する部分 -->
+<div id="moodDisplay">
+    <!-- ここに顔文字が表示されます -->
+</div>
+
         <!-- カレンダー機能 -->
         <div id='calendar'></div>
 
@@ -61,8 +75,8 @@
                     eventClick: function(info) {
                         // イベントの開始日時に基づいて該当の日のイベントリストページに遷移
                         var eventDate = info.event.start.toISOString().split('T')[0]; // YYYY-MM-DD形式の日付を取得
-                        window.location.href = '/events/' + eventDate; 
-                    }
+                        window.location.href = '/events/' + eventDate;
+                     }
                 });
                 calendar.render();
             });
@@ -71,8 +85,43 @@
 
         <div class="navigation">
             <button onclick="location.href='{{ route('comms.index') }}'">コミュニティ</button>
-            <button onclick="location.href='events.php'">チャット</button>
+            <button onclick="location.href='events.php'">イベント</button>
         </div>
     </div>
+
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        
+        console.log('CSRF Token:', token); // コンソールにトークンを表示
+    });
+
+        document.getElementById('moodUpdateButton').addEventListener('click', function() {
+            const mood = document.getElementById('moodSelect').value;
+
+            
+            fetch('{{ route('mood.update') }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': token
+                },
+                body: JSON.stringify({
+                    mood: mood
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // 成功時の処理。たとえば、顔文字を変更するなど
+                document.getElementById('moodDisplay').innerText = data.mood;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+
+    </script>
+
 </body>
 </html>
