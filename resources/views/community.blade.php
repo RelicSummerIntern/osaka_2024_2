@@ -223,6 +223,9 @@
             <form action="{{ route('commchat.store', ['comm_id' => $comm_id]) }}" method="POST">
                 @csrf
                 <div class="input-group">
+                    <!-- comm_id を hidden フィールドで送信 -->
+                    <input type="hidden" name="comm_id" value="{{ $comm_id }}">
+                    
                     <textarea name="text" placeholder="メッセージを入力..." required></textarea>
                     <button type="submit">送信</button>
                 </div>
