@@ -13,6 +13,8 @@ use App\Http\Controllers\CommEventsController;
 use App\Http\Controllers\EventsController;
 use App\Http\Controllers\UserController;
 
+use App\Http\Controllers\MoodController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -80,9 +82,26 @@ Route::middleware('auth')->group(function () {
 
     // イベント詳細のルート
     Route::get('/events/{datetime}', [EventsController::class, 'show']);
+
+    
+   
+
+    // MoodController に対応するルートを追加
+
+
 });
 
-Route::post('/update-mood', [UserController::class, 'updateMood']);
+// MoodController に対応するルートを追加
+Route::post('/mood/update', [MoodController::class, 'updateMood'])->name('mood.update');
+
+
+
+
+
+
+
+
+
 
 require __DIR__.'/auth.php';
 
