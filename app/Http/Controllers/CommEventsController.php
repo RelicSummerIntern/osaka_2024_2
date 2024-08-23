@@ -41,7 +41,7 @@ class CommEventsController extends Controller
         $event->save();
     
         // セッションにフラッシュメッセージを保存
-        return redirect()->back()->with('success', 'イベントが正常に登録されました！');
+        return redirect()->back()->with('event_success', 'イベントが正常に登録されました！');
     }
     
     /**

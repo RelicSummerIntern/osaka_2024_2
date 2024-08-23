@@ -101,8 +101,6 @@
         .navigation button:hover {
             background-color: #0056b3;
         }
-    </style>
-     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
@@ -166,6 +164,38 @@
             font-size: 1.5em;   /* テキストサイズを大きく */
             margin: 20px auto;  /* 上下に余白を追加して中央に配置 */
         }
+        .chat-input-container {
+            margin-top: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .input-group textarea {
+            flex-grow: 1;  /* テキストエリアが可能な限り幅を取るようにする */
+            height: 60px;  /* 高さを調整 */
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 16px;
+            margin-right: 10px;  /* ボタンとの間にスペースを確保 */
+        }
+
+        .input-group button {
+            height: 60px;  /* テキストエリアと高さを揃える */
+            padding: 0 20px;  /* ボタン内の余白を調整 */
+            font-size: 16px;
+            border-radius: 10px;
+            background-color: #007bff;  /* ボタンの背景色 */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .input-group button:hover {
+            background-color: #0056b3;  /* ホバー時の背景色変更 */
+        }
     </style>
 </head>
 <body>
@@ -187,6 +217,25 @@
                 </div>
             @endforeach
         </div>
+
+        <!-- コミュニティのチャット入力フォーム -->
+        <div class="chat-input-container">
+            <form action="{{ route('commchat.store', ['comm_id' => $comm_id]) }}" method="POST">
+                @csrf
+                <div class="input-group">
+                    <textarea name="text" placeholder="メッセージを入力..." required></textarea>
+                    <button type="submit">送信</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- コミュニティチャットの送信完了通知 -->
+        @if (session('chat_success'))
+            <div class="alert alert-success">
+                {{ session('chat_success') }}
+            </div>
+        @endif
+
         <!-- コミュニティのメンバリスト -->
         <h2>メンバー一覧</h2>
         <div class="members-list">
@@ -223,9 +272,9 @@
             </form>
         </div>
         <!-- 登録時メッセージ表示部分 -->
-        @if (session('success'))
+        @if (session('event_success'))
             <div class="alert alert-success">
-                {{ session('success') }}
+                {{ session('event_success') }}
             </div>
         @endif
 

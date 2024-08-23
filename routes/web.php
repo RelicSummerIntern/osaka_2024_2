@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommsController;
+use App\Http\Controllers\CommChatsController;
 use App\Http\Controllers\CommunityController;
 
 use App\Http\Controllers\HomeController;
@@ -62,6 +63,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/community/{comm_id}/enter', [CommsController::class, 'enter'])->name('comms.enter');
     // コミュニティの詳細ページへ直接移動（comms.enterで呼び出す）
     Route::get('/community/{comm_id}', [CommunityController::class, 'index'])->name('community.index');
+});
+
+//======コミュニティチャット======
+Route::middleware('auth')->group(function () {
+    Route::post('/community/{comm_id}/store', [CommChatsController::class, 'store'])->name('commchat.store');
 });
 
 //======イベントまわりのルート======

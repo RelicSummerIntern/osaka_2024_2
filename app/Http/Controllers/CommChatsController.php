@@ -3,10 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\CommChats;
+use Illuminate\Support\Facades\Auth; // Authクラスをインポート
 use Illuminate\Http\Request;
 
 class CommChatsController extends Controller
 {
+    public function store(Request $request)
+    {
+        $chat = new CommChats();
+        $chat->comm_id = $request->input('comm_id'); // コミュニティIDを入力
+        $chat->user_id = Auth::id(); // 現在のユーザーIDを取得
+        $chat->text = $request->input('text');
+        $chat->save();
+
+        return redirect()->back()->with('chat_success', 'メッセージが送信されました');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -19,14 +30,6 @@ class CommChatsController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
     {
         //
     }
