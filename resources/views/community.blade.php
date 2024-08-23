@@ -101,8 +101,6 @@
         .navigation button:hover {
             background-color: #0056b3;
         }
-    </style>
-     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
@@ -159,26 +157,53 @@
         .event-create button:hover {
             background-color: #0056b3;
         }
+        .alert-success {
+            background-color: #d4edda; /* 背景色 */
+            color: #155724;            /* 文字色 */
+            border: 1px solid #c3e6cb; /* 枠線 */
+            font-size: 1.5em;   /* テキストサイズを大きく */
+            margin: 20px auto;  /* 上下に余白を追加して中央に配置 */
+        }
+        .chat-input-container {
+            margin-top: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .input-group textarea {
+            flex-grow: 1;  /* テキストエリアが可能な限り幅を取るようにする */
+            height: 60px;  /* 高さを調整 */
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 16px;
+            margin-right: 10px;  /* ボタンとの間にスペースを確保 */
+        }
+
+        .input-group button {
+            height: 60px;  /* テキストエリアと高さを揃える */
+            padding: 0 20px;  /* ボタン内の余白を調整 */
+            font-size: 16px;
+            border-radius: 10px;
+            background-color: #007bff;  /* ボタンの背景色 */
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .input-group button:hover {
+            background-color: #0056b3;  /* ホバー時の背景色変更 */
+        }
     </style>
 </head>
 <body>
-    <div class="community-container">
-        <!-- コミュニティのメンバリスト -->
-        <h2>メンバー一覧</h2>
-        <div class="members-list">
-            @foreach ($members as $member)
-                <div class="member-item {{ $member->id == Auth::id() ? 'self' : '' }}">
-                    <!-- プロフィール画像（仮のURL、実際にはユーザーの画像URLを使用） -->
-                    <img src="{{ $member->profile_picture_url ?? 'path/to/default/profile.jpg' }}" alt="{{ $member->name }} さんのプロフィール画像">
-                    <h1>{{ $member->name }} さん</h1>
-                </div>
-            @endforeach
-        </div>
-        
+    <div class="community-container">        
         <!-- コミュニティの掲示板 -->
         <h2>掲示板</h2>
         <div class="chat-list">
-            @foreach ($commchat as $chat)
+            @foreach ($commchat->reverse() as $chat) <!-- 逆順にする -->
                 <div class="chat-item {{ $chat->user_id == Auth::id() ? 'mine' : 'others' }}">
                     @if ($chat->user_id != Auth::id())
                         <div class="chat-author">{{ $chat->user->name }} さん</div>
@@ -192,35 +217,66 @@
                 </div>
             @endforeach
         </div>
-         <!-- イベント作成フォーム -->
-      
-            <div class="event-create">
-                <h3>イベント作成</h3>
-                <form action="/create-event" method="post">
-                    @csrf
-                    <label for="title">イベント名:</label>
-                    <input type="text" id="title" name="title" required>
-                    
-                    <label for="description">詳細:</label>
-                    <textarea id="description" name="description"></textarea>
-                    
-                    <label for="start_time">開始日時:</label>
-                    <input type="datetime-local" id="start_time" name="start_time" required>
-                    
-                    <label for="end_time">終了日時:</label>
-                    <input type="datetime-local" id="end_time" name="end_time">
-                    
-                    <label for="location">場所:</label>
-                    <input type="text" id="location" name="location">
-                    
-                    <button type="submit">作成</button>
-                </form>
+
+        <!-- コミュニティのチャット入力フォーム -->
+        <div class="chat-input-container">
+            <form action="{{ route('commchat.store', ['comm_id' => $comm_id]) }}" method="POST">
+                @csrf
+                <div class="input-group">
+                    <textarea name="text" placeholder="メッセージを入力..." required></textarea>
+                    <button type="submit">送信</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- コミュニティチャットの送信完了通知 -->
+        @if (session('chat_success'))
+            <div class="alert alert-success">
+                {{ session('chat_success') }}
             </div>
+        @endif
 
+        <!-- コミュニティのメンバリスト -->
+        <h2>メンバー一覧</h2>
+        <div class="members-list">
+            @foreach ($members as $member)
+                <div class="member-item {{ $member->id == Auth::id() ? 'self' : '' }}">
+                    <!-- プロフィール画像（仮のURL、実際にはユーザーの画像URLを使用） -->
+                    <img src="{{ $member->profile_picture_url ?? 'path/to/default/profile.jpg' }}" alt="{{ $member->name }} さんのプロフィール画像">
+                    <h1>{{ $member->name }} さん</h1>
+                </div>
+            @endforeach
+        </div>
 
+        <!-- イベント作成フォーム -->
+        <div class="event-create">
+            <h3>イベント作成</h3>
+            <form action="/create-event" method="post">
+                @csrf
+                <label for="title">イベント名:</label>
+                <input type="text" id="title" name="title" required>
+                
+                <label for="held_datetime">開始日時:</label>
+                <input type="datetime-local" id="held_datetime" name="held_datetime" required>
+                
+                <label for="end_time">終了日時:</label>
+                <input type="datetime-local" id="end_time" name="end_time">
+                
+                <label for="held_place">場所:</label>
+                <input type="text" id="held_place" name="held_place">
 
-       
-
+                <!-- comm_id を hidden フィールドで送信 -->
+                <input type="hidden" name="comm_id" value="{{ $comm_id }}">
+                
+                <button type="submit">作成</button>
+            </form>
+        </div>
+        <!-- 登録時メッセージ表示部分 -->
+        @if (session('event_success'))
+            <div class="alert alert-success">
+                {{ session('event_success') }}
+            </div>
+        @endif
 
         <div class="navigation">
             <button onclick="location.href='{{ url('/mypage') }}'">マイページ</button>
