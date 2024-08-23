@@ -159,6 +159,13 @@
         .event-create button:hover {
             background-color: #0056b3;
         }
+        .alert-success {
+            background-color: #d4edda; /* 背景色 */
+            color: #155724;            /* 文字色 */
+            border: 1px solid #c3e6cb; /* 枠線 */
+            font-size: 1.5em;   /* テキストサイズを大きく */
+            margin: 20px auto;  /* 上下に余白を追加して中央に配置 */
+        }
     </style>
 </head>
 <body>
@@ -191,35 +198,36 @@
                 </div>
             @endforeach
         </div>
-         <!-- イベント作成フォーム -->
-      
-            <div class="event-create">
-                <h3>イベント作成</h3>
-                <form action="/create-event" method="post">
-                    @csrf
-                    <label for="title">イベント名:</label>
-                    <input type="text" id="title" name="title" required>
-                    
-                    <label for="description">詳細:</label>
-                    <textarea id="description" name="description"></textarea>
-                    
-                    <label for="start_time">開始日時:</label>
-                    <input type="datetime-local" id="start_time" name="start_time" required>
-                    
-                    <label for="end_time">終了日時:</label>
-                    <input type="datetime-local" id="end_time" name="end_time">
-                    
-                    <label for="location">場所:</label>
-                    <input type="text" id="location" name="location">
-                    
-                    <button type="submit">作成</button>
-                </form>
+
+        <!-- イベント作成フォーム -->
+        <div class="event-create">
+            <h3>イベント作成</h3>
+            <form action="/create-event" method="post">
+                @csrf
+                <label for="title">イベント名:</label>
+                <input type="text" id="title" name="title" required>
+                
+                <label for="held_datetime">開始日時:</label>
+                <input type="datetime-local" id="held_datetime" name="held_datetime" required>
+                
+                <label for="end_time">終了日時:</label>
+                <input type="datetime-local" id="end_time" name="end_time">
+                
+                <label for="held_place">場所:</label>
+                <input type="text" id="held_place" name="held_place">
+
+                <!-- comm_id を hidden フィールドで送信 -->
+                <input type="hidden" name="comm_id" value="{{ $comm_id }}">
+                
+                <button type="submit">作成</button>
+            </form>
+        </div>
+        <!-- 登録時メッセージ表示部分 -->
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
             </div>
-
-
-
-       
-
+        @endif
 
         <div class="navigation">
             <button onclick="location.href='{{ url('/mypage') }}'">マイページ</button>

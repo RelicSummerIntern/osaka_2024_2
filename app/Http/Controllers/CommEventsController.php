@@ -32,17 +32,18 @@ class CommEventsController extends Controller
      */
     public function create(Request $request)
     {
-        $event =new CommEventS();
+        $event = new CommEvents();
         $event->title = $request->input('title');
-        $event->description = $request->input('description');
-        $event->start_time = $request->input('start_time');
+        $event->held_datetime = $request->input('held_datetime');
         $event->end_time = $request->input('end_time');
-        $event->location = $request->input('location');
+        $event->held_place = $request->input('held_place');
+        $event->comm_id = $request->input('comm_id');
         $event->save();
-
-        return redirect()->back();
+    
+        // セッションにフラッシュメッセージを保存
+        return redirect()->back()->with('success', 'イベントが正常に登録されました！');
     }
-
+    
     /**
      * Store a newly created resource in storage.
      */
